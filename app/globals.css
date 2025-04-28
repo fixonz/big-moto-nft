@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Improved font declarations with !important to ensure they apply */
+@font-face {
+  font-family: "OldGameFatty";
+  src: url("/fonts/OldGameFatty.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PrStart";
+  src: url("/fonts/PrStart.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --font-pixel: "OldGameFatty", monospace;
+  --font-heading: "PrStart", monospace;
+}
+
+body {
+  background-color: #050510;
+  color: white;
+  overflow-x: hidden;
+}
+
+.font-pixel {
+  font-family: "OldGameFatty", monospace !important;
+  letter-spacing: 0.5px;
+}
+
+.font-heading {
+  font-family: "PrStart", monospace !important;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes portal-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes border-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pixel-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(255, 0, 255, 0.7));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9));
+  }
+}
+
+@keyframes shadow-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+  }
+}
+
+@keyframes text-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  5%,
+  10% {
+    opacity: 0.8;
+  }
+  15% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 15s ease-in-out infinite;
+}
+
+.animate-portal-pulse {
+  animation: portal-pulse 4s ease-in-out infinite;
+}
+
+.animate-border-pulse {
+  animation: border-pulse 2s ease-in-out infinite;
+}
+
+.animate-pixel-glow {
+  animation: pixel-glow 3s ease-in-out infinite;
+}
+
+.animate-shadow-breathe {
+  animation: shadow-breathe 4s ease-in-out infinite;
+}
+
+.animate-text-flicker {
+  animation: text-flicker 10s ease-in-out infinite;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+/* Pixelated glow effect */
+.pixel-glow {
+  position: relative;
+}
+
+.pixel-glow::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: transparent;
+  border: 2px solid rgba(255, 0, 255, 0.5);
+  z-index: -1;
+  filter: blur(2px);
+}
+
+.pixel-glow-cyan::before {
+  border-color: rgba(0, 255, 255, 0.5);
+}
+
+/* Rounded image style */
+.rounded-pixel {
+  clip-path: polygon(
+    4px 0,
+    calc(100% - 4px) 0,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    0 calc(100% - 4px),
+    0 4px
+  );
+}
