@@ -1,7 +1,8 @@
 "use client"
 
+import React from "react"
 import { useState } from "react"
-import { deployContract } from "@/app/adminmandeploy/actions"
+import { deployContract } from "../app/adminmandeploy/actions"
 
 export default function AdminPanel() {
   const [status, setStatus] = useState<"idle" | "deploying" | "success" | "error">("idle")
