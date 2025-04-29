@@ -3,6 +3,7 @@ import React, { type ReactNode, useState, createContext, useContext } from "reac
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AbstractWalletProvider, useLoginWithAbstract } from "@abstract-foundation/agw-react";
 import { abstractTestnet } from "viem/chains";
+import { useAccount } from "wagmi";
 
 // See: https://docs.abs.xyz/abstract-global-wallet/agw-react/AbstractWalletProvider
 // AbstractWalletProvider expects a 'chain' prop, not 'config'.
@@ -32,8 +33,8 @@ const WalletContext = createContext<WalletContextType>({
 export const useWallet = () => useContext(WalletContext);
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
-  const { login, logout, address, isLoading, error } = useLoginWithAbstract();
-  const isConnected = !!address;
+  const { address, isConnected } = useAccount();
+  const { login, logout, isLoading, error } = useLoginWithAbstract();
 
   const connect = async () => {
     try {
