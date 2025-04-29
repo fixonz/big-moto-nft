@@ -10,7 +10,7 @@ interface AbstractWalletConnectorProps {
 
 export default function AbstractWalletConnector({ onConnect }: AbstractWalletConnectorProps) {
   const [isConnecting, setIsConnecting] = useState(false)
-  const { login, error } = useLoginWithAbstract()
+  const { login } = useLoginWithAbstract()
 
   const handleConnect = async () => {
     setIsConnecting(true)
