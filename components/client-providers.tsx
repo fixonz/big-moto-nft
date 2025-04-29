@@ -50,7 +50,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AbstractWalletProvider chain={abstractTestnet}>
+      <AbstractWalletProvider config={abstractTestnet}>
         <WalletContext.Provider value={{ isConnected, address, connect, disconnect }}>
           {children}
         </WalletContext.Provider>
