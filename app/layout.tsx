@@ -3,6 +3,8 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import ClientProviders from '../components/client-providers'
+import { WagmiProvider, createConfig, http } from 'wagmi'
+import { mainnet } from 'wagmi/chains'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -11,6 +13,13 @@ export const metadata: Metadata = {
   description:
     "Big Moto NFTs are a collection of 999 unique pixelated characters born from the shadows of the blockchain.",
 }
+
+const wagmiConfig = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.id]: http(),
+  },
+})
 
 export default function RootLayout({
   children,
@@ -49,7 +58,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <div className="mysterious-bg"></div>
-        <ClientProviders>{children}</ClientProviders>
+        <WagmiProvider config={wagmiConfig}>
+          <ClientProviders>{children}</ClientProviders>
+        </WagmiProvider>
       </body>
     </html>
   )

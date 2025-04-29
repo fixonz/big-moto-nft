@@ -4,7 +4,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { useWallet } from "@/context/wallet-context"
+import { useWallet } from "../context/wallet-context"
 
 const elementTypes = [
   {
@@ -54,7 +54,7 @@ export default function ShadowCharacterCreator() {
   const [characterName, setCharacterName] = useState("")
   const [powerLevel, setPowerLevel] = useState(0)
   const [isGenerating, setIsGenerating] = useState(false)
-  const { isConnected } = useWallet()
+  const { isConnected, connect } = useWallet();
 
   useEffect(() => {
     // Calculate power level based on selections
@@ -64,15 +64,13 @@ export default function ShadowCharacterCreator() {
   }, [selectedElement, selectedAccessory])
 
   const handleGenerate = () => {
-    if (!isConnected || !characterName) return
-
-    setIsGenerating(true)
-    // Simulate generation process
+    if (!isConnected || !characterName) return;
+    setIsGenerating(true);
     setTimeout(() => {
-      setIsGenerating(false)
+      setIsGenerating(false);
       // Here you would typically mint the NFT or save the character
-    }, 3000)
-  }
+    }, 3000);
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto bg-black/30 rounded-xl p-6 border-2 border-[#00ffff]/30">
@@ -140,7 +138,7 @@ export default function ShadowCharacterCreator() {
             </div>
 
             <button
-              onClick={handleGenerate}
+              onClick={isConnected ? handleGenerate : connect}
               disabled={!isConnected || !characterName || isGenerating}
               className={`w-full px-6 py-3 font-heading text-xs rounded-pixel transition-all ${
                 !isConnected || !characterName || isGenerating
@@ -148,7 +146,11 @@ export default function ShadowCharacterCreator() {
                   : "bg-[#ff5500] text-white hover:bg-[#ff5500]/80 hover:drop-shadow-[0_0_8px_rgba(255,85,0,0.7)]"
               }`}
             >
-              {isGenerating ? "GENERATING..." : isConnected ? "GENERATE CHARACTER" : "CONNECT WALLET TO CREATE"}
+              {isGenerating
+                ? "GENERATING..."
+                : !isConnected
+                ? "CONNECT WALLET TO CREATE"
+                : "GENERATE CHARACTER"}
             </button>
           </div>
         </div>
