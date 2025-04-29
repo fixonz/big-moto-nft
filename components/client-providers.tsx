@@ -1,5 +1,5 @@
 "use client"
-import React, { type ReactNode, useState, createContext, useContext } from "react";
+import React, { type ReactNode, useState, createContext, useContext, useRef } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AbstractWalletProvider, useLoginWithAbstract } from "@abstract-foundation/agw-react";
 import { abstractTestnet } from "viem/chains";
@@ -29,6 +29,10 @@ const WalletContext = createContext<WalletContextType>({
 export const useWallet = () => useContext(WalletContext);
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
+  const queryClientRef = useRef<QueryClient>();
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient();
+  }
   const { address, isConnected } = useAccount();
   const { login, logout } = useLoginWithAbstract();
 
@@ -49,7 +53,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClientRef.current}>
       <AbstractWalletProvider config={abstractTestnet}>
         <WalletContext.Provider value={{ isConnected, address, connect, disconnect }}>
           {children}
