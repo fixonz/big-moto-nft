@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AbstractWalletProvider, useLoginWithAbstract } from "@abstract-foundation/agw-react";
 import { abstractTestnet } from "viem/chains";
 import { useAccount } from "wagmi";
-import { useWallet } from "../context/wallet-context"
 
 // See: https://docs.abs.xyz/abstract-global-wallet/agw-react/AbstractWalletProvider
 // AbstractWalletProvider expects a 'chain' prop, not 'config'.
