@@ -1,0 +1,9 @@
+{
+  "network": "abstractTestnet",
+  "contractAddress": "0xBd024Fd1644a729A3030D57404BdA499Cbcff376",
+  "name": "Big Moto NFT",
+  "symbol": "BIGMOTO",
+  "baseURI": "ipfs://QmNqPcLMoVMhFyoJ9dtddW643obdgEFEnJ7oWRM9Su8pDQ/",
+  "bigTokenAddress": "0xDf70075737E9F96B078ab4461EeE3e055E061223",
+  "deploymentTime": "2025-04-29T14:43:35.273Z"
+}

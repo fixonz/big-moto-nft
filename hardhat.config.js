@@ -13,13 +13,10 @@ module.exports = {
     },
   },
   networks: {
-    abstractMainnet: {
-      url: process.env.ABSTRACT_RPC_URL || "https://mainnet.abstract.network/rpc",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-    },
     abstractTestnet: {
-      url: process.env.ABSTRACT_TESTNET_RPC_URL || "https://testnet.abstract.network/rpc",
+      url: process.env.ABSTRACT_TESTNET_RPC_URL || "https://api.testnet.abs.xyz",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11124,
     },
     hardhat: {
       chainId: 1337,

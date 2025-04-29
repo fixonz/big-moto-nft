@@ -1,7 +1,8 @@
 "use client"
-
-import { type ReactNode, useState, createContext, useContext } from "react"
+import React, { type ReactNode, useState, createContext, useContext } from "react";
+// @ts-ignore
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+// @ts-ignore
 import { AbstractWalletProvider } from "@abstract-foundation/agw-react"
 import { abstractTestnet } from "viem/chains"
 

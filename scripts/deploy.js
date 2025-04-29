@@ -2,38 +2,66 @@
 const { ethers } = require("hardhat")
 
 async function main() {
-  const [deployer] = await ethers.getSigners()
-  console.log("Deploying contracts with the account:", deployer.address)
+  try {
+    console.log("Starting deployment...")
 
-  // For testing, we'll deploy a mock BIG token first
-  const MockBIG = await ethers.getContractFactory("MockBIG")
-  const mockBIG = await MockBIG.deploy()
-  await mockBIG.deployed()
-  console.log("MockBIG deployed to:", mockBIG.address)
+    const BigMotoNFT = await ethers.getContractFactory("BigMotoNFT")
+    
+    // Constructor arguments
+    const name = "Big Moto NFT"
+    const symbol = "BIGMOTO"
+    const baseURI = "ipfs://QmNqPcLMoVMhFyoJ9dtddW643obdgEFEnJ7oWRM9Su8pDQ/"
+    const bigTokenAddress = "0xDf70075737E9F96B078ab4461EeE3e055E061223"
 
-  // Deploy the NFT contract
-  const BigMotoNFT = await ethers.getContractFactory("BigMotoNFT")
-  const nft = await BigMotoNFT.deploy(
-    "Big Moto NFT",
-    "BIGMOTO",
-    "https://api.bigmotonft.xyz/metadata/",
-    mockBIG.address,
-  )
-  await nft.deployed()
-  console.log("BigMotoNFT deployed to:", nft.address)
+    console.log("Deploying contract with parameters:")
+    console.log("Name:", name)
+    console.log("Symbol:", symbol)
+    console.log("Base URI:", baseURI)
+    console.log("BIG Token Address:", bigTokenAddress)
 
-  // Add some addresses to whitelist for testing
-  const testAddresses = [
-    "0x1234567890123456789012345678901234567890",
-    "0x2345678901234567890123456789012345678901",
-    "0x3456789012345678901234567890123456789012",
-  ]
-  await nft.addToWhitelist(testAddresses)
-  console.log("Added test addresses to whitelist")
+    const contract = await BigMotoNFT.deploy(
+      name,
+      symbol,
+      baseURI,
+      bigTokenAddress
+    )
 
-  // Set sale state to whitelist
-  await nft.setSaleState(1) // 1 = Whitelist
-  console.log("Set sale state to Whitelist")
+    await contract.deployed()
+
+    console.log("Contract deployed successfully!")
+    console.log("Contract address:", contract.address)
+
+    // Set initial state
+    console.log("Setting initial contract state...")
+    
+    // Keep sale paused initially
+    console.log("Sale state is initially paused")
+
+    // Save deployment info
+    const fs = require('fs')
+    const deployInfo = {
+      network: network.name,
+      contractAddress: contract.address,
+      name,
+      symbol,
+      baseURI,
+      bigTokenAddress,
+      deploymentTime: new Date().toISOString()
+    }
+
+    // Write deployment info to file
+    fs.writeFileSync(
+      'deployment-info.json',
+      JSON.stringify(deployInfo, null, 2)
+    )
+
+    console.log("Deployment info saved to deployment-info.json")
+    console.log("Deployment completed successfully!")
+
+  } catch (error) {
+    console.error("Error during deployment:", error)
+    process.exit(1)
+  }
 }
 
 main()

@@ -173,8 +173,8 @@ contract BigMotoNFT is ERC721Enumerable, Ownable {
         return baseURI;
     }
     
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        require(_exists(tokenId), "Token does not exist");
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        require(ownerOf(tokenId) != address(0), "Token does not exist");
         
         string memory currentBaseURI = _baseURI();
         return bytes(currentBaseURI).length > 0
