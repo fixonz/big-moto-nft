@@ -11,7 +11,7 @@ interface ProvidersProps {
 
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <AbstractWalletProvider chain={abstractTestnet}>
+    <AbstractWalletProvider config={abstractTestnet}>
       <WalletProvider>{children}</WalletProvider>
     </AbstractWalletProvider>
   )
