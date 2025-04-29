@@ -36,7 +36,7 @@ export async function deployContract(
     }
 
     // Create a provider and wallet
-    const provider = new ethers.JsonRpcProvider(rpcUrl)
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
 
     // Create contract factory
