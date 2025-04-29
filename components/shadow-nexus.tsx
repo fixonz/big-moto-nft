@@ -6,7 +6,7 @@ import { Sparkles, MeshTransmissionMaterial } from "@react-three/drei"
 import { Suspense } from "react"
 import { motion } from "framer-motion"
 import * as THREE from "three"
-import { useWallet } from "@/context/wallet-context"
+import { useWallet } from "../context/wallet-context"
 
 // Create a simple portal geometry instead of loading a GLB file
 function Portal(props: any) {
