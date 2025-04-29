@@ -1,5 +1,5 @@
-import { ContractFactory, Wallet } from 'ethers';
-import { ethers } from 'ethers'; // <-- Add this line
+import { ethers } from 'ethers';
+// @ts-ignore
 import { BigMotoNFTArtifact } from './contractArtifact';
 
 interface DeploymentConfig {
@@ -13,18 +13,15 @@ interface DeploymentConfig {
 
 export async function deployContract(config: DeploymentConfig) {
   try {
-    // Create provider and wallet
-    const provider = new ethers.JsonRpcProvider(config.rpcUrl);
-    const wallet = new Wallet(config.privateKey, provider);
+    const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
+    const wallet = new ethers.Wallet(config.privateKey, provider);
 
-    // Create contract factory
-    const factory = new ContractFactory(
+    const factory = new ethers.ContractFactory(
       BigMotoNFTArtifact.abi,
       BigMotoNFTArtifact.bytecode,
       wallet
     );
 
-    // Deploy contract
     const contract = await factory.deploy(
       config.name,
       config.symbol,
@@ -32,13 +29,12 @@ export async function deployContract(config: DeploymentConfig) {
       config.bigTokenAddress
     );
 
-    // Wait for deployment to complete
-    await contract.waitForDeployment();
+    await contract.deployed();
 
     return {
       success: true,
-      address: contract.target,
-      transactionHash: contract.deploymentTransaction().hash
+      address: contract.address,
+      transactionHash: contract.deployTransaction.hash
     };
   } catch (error) {
     console.error('Deployment error:', error);
