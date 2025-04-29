@@ -1,9 +1,10 @@
 "use client"
 
+import React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { useWallet } from "@/context/wallet-context"
+import { useWallet } from "../context/wallet-context"
 
 const battleEffects = [
   { id: "fire", name: "Fire Blast", damage: 25, color: "#ff5500", cooldown: 2 },
