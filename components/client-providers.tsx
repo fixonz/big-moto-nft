@@ -32,7 +32,8 @@ const WalletContext = createContext<WalletContextType>({
 export const useWallet = () => useContext(WalletContext);
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
-  const { login, logout, isConnected, address, isLoading, error } = useLoginWithAbstract();
+  const { login, logout, address, isLoading, error } = useLoginWithAbstract();
+  const isConnected = !!address;
 
   const connect = async () => {
     try {
