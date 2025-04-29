@@ -1,10 +1,10 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 
 import Link from "next/link"
 import { ExternalLink } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 
 interface PixelatedButtonProps {
   children: React.ReactNode
