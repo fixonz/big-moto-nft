@@ -17,8 +17,6 @@ interface WalletContextType {
   address: string | undefined;
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
-  isLoading: boolean;
-  error: string | null;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -26,15 +24,13 @@ const WalletContext = createContext<WalletContextType>({
   address: undefined,
   connect: async () => {},
   disconnect: async () => {},
-  isLoading: false,
-  error: null,
 });
 
 export const useWallet = () => useContext(WalletContext);
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
   const { address, isConnected } = useAccount();
-  const { login, logout, isLoading, error } = useLoginWithAbstract();
+  const { login, logout } = useLoginWithAbstract();
 
   const connect = async () => {
     try {
@@ -55,7 +51,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AbstractWalletProvider chain={abstractTestnet}>
-        <WalletContext.Provider value={{ isConnected, address, connect, disconnect, isLoading, error: error ? String(error) : null }}>
+        <WalletContext.Provider value={{ isConnected, address, connect, disconnect }}>
           {children}
         </WalletContext.Provider>
       </AbstractWalletProvider>
