@@ -2,7 +2,6 @@ import React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import ClientProviders from '../components/client-providers'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 
@@ -59,7 +58,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="mysterious-bg"></div>
         <WagmiProvider config={wagmiConfig}>
-          <ClientProviders>{children}</ClientProviders>
+          {children}
         </WagmiProvider>
       </body>
     </html>
