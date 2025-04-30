@@ -8,9 +8,6 @@ import { useAccount } from "wagmi";
 // See: https://docs.abs.xyz/abstract-global-wallet/agw-react/AbstractWalletProvider
 // AbstractWalletProvider expects a 'chain' prop, not 'config'.
 
-// Create a client
-const queryClient = new QueryClient();
-
 // Create a simple wallet context that doesn't rely on React Query hooks
 interface WalletContextType {
   isConnected: boolean;
@@ -33,6 +30,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
   }
+  if (!queryClientRef.current) return null; // TypeScript guard
   const { address, isConnected } = useAccount();
   const { login, logout } = useLoginWithAbstract();
 
